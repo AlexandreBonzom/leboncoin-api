@@ -16,7 +16,7 @@ cloudinary.config({
 //upload
 const upLoadPicture = (req, user) => {
   let arrayPictures = [];
-  console.log(req.body.files);
+
   if (req.body.files.length > 0) {
     for (let i = 0; i < req.body.files.length; i++) {
       const name = uid2(16);
@@ -30,7 +30,9 @@ const upLoadPicture = (req, user) => {
       );
     }
   }
-  console.log("arraypicture1" + arrayPictures);
+
+  req.pictures = arrayPictures;
+  console.log(req.pictures);
   return arrayPictures;
 };
 
