@@ -7,9 +7,9 @@ const uid2 = require("uid2");
 //Cloudinary
 const cloudinary = require("cloudinary");
 cloudinary.config({
-  cloud_name: "dcfxt6i40",
-  api_key: "763588626398845",
-  api_secret: "cItYnG_dSpVSKymc9DMKebJS6w8"
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET
 });
 //CRUD
 
@@ -21,26 +21,18 @@ const upLoadPicture = (req, user) => {
   if (files.length > 0) {
     for (let i = 0; i < files.length; i++) {
       const name = uid2(16);
-      console.log(files[i]);
-      console.log(name);
-      console.log(user._id);
+
       cloudinary.v2.uploader.upload(
         files[i],
         { public_id: `leboncoin/${user._id}/${name}` },
 
-        function(error, result) {
-          console.log(error, result);
-          // (error, result) => {
-          //   console.log("ERROR" + error);
-          //   console.log(result);
-          //   if (error) return res.status(500).json({ error });
-          //   arrayPictures.push(result);
+        (error, result) => {
+          if (error) return res.status(500).json({ error });
+          arrayPictures.push(result);
         }
       );
     }
   }
-
-  console.log("helllo!!!");
 
   return arrayPictures;
 };
@@ -54,7 +46,7 @@ router.post("/publish", async (req, res) => {
 
     if (user) {
       const arrayPictures = upLoadPicture(req, user);
-      console.log("arraypicture2" + arrayPictures);
+
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
@@ -62,9 +54,9 @@ router.post("/publish", async (req, res) => {
         creator: user,
         pictures: arrayPictures
       });
-      console.log("newOffer" + newOffer);
+
       await newOffer.save();
-      console.log("afterNewOffer");
+
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });
