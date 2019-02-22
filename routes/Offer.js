@@ -42,7 +42,7 @@ router.post("/publish", async (req, res) => {
     console.log("hello");
     if (user) {
       const arrayPictures = await upLoadPicture(req);
-
+      console.log("hello2");
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
@@ -50,9 +50,9 @@ router.post("/publish", async (req, res) => {
         creator: user,
         pictures: arrayPictures
       });
-
+      console.log("hello3");
       await newOffer.save();
-
+      console.log("hello4");
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });
