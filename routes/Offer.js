@@ -14,7 +14,7 @@ cloudinary.config({
 //CRUD
 
 //upload
-const upLoadPicture = (req, user) => {
+const upLoadPicture = async (req, user) => {
   let arrayPictures = [];
   const files = [...req.body.files];
 
@@ -22,7 +22,7 @@ const upLoadPicture = (req, user) => {
     for (let i = 0; i < files.length; i++) {
       const name = uid2(16);
 
-      cloudinary.v2.uploader.upload(
+      await cloudinary.v2.uploader.upload(
         files[i],
         { public_id: `leboncoin/${user._id}/${name}` },
 
@@ -45,8 +45,8 @@ router.post("/publish", async (req, res) => {
     const user = await User.findOne({ token: newToken }, "account");
 
     if (user) {
-      const arrayPictures = upLoadPicture(req, user);
-      console.log(arrayPictures);
+      const arrayPictures = await upLoadPicture(req, user);
+
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
