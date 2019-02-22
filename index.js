@@ -9,9 +9,12 @@ app.use(bodyParser.json());
 
 //permet d'utiliser BD moongoDB
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/leboncoin-server", {
-  useNewUrlParser: true
-});
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/leboncoin-server",
+  {
+    useNewUrlParser: true
+  }
+);
 
 //donne acceecibilité aux autres sites pour recuperer des infos
 const cors = require("cors");
@@ -45,4 +48,4 @@ const userRoutes = require("./routes/User");
 app.use("/offer", offerRoutes);
 app.use("/user", userRoutes);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
