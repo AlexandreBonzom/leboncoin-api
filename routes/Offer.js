@@ -7,9 +7,9 @@ const uid2 = require("uid2");
 //Cloudinary
 const cloudinary = require("cloudinary");
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET
+  cloud_name: dcfxt6i40,
+  api_key: 763588626398845,
+  api_secret: cItYnG_dSpVSKymc9DMKebJS6w8
 });
 //CRUD
 
