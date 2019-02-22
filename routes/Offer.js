@@ -30,7 +30,7 @@ const upLoadPicture = (req, user) => {
       );
     }
   }
-
+  console.log(arrayPictures);
   return arrayPictures;
 };
 
