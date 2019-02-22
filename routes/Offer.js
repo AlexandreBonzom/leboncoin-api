@@ -16,6 +16,7 @@ cloudinary.config({
 //middleware picture
 const upLoadPicture = async req => {
   const arrayPictures = [];
+
   if (req.body.files.length > 0) {
     for (let i = 0; i < req.body.files.length; i++) {
       await cloudinary.v2.uploader.upload(
@@ -28,6 +29,7 @@ const upLoadPicture = async req => {
       );
     }
   }
+
   return arrayPictures;
 };
 
@@ -37,7 +39,7 @@ router.post("/publish", async (req, res) => {
 
   try {
     const user = await User.findOne({ token: newToken }, "account");
-
+    console.log("hello");
     if (user) {
       const arrayPictures = await upLoadPicture(req);
 
@@ -48,7 +50,9 @@ router.post("/publish", async (req, res) => {
         creator: user,
         pictures: arrayPictures
       });
-      newOffer.save();
+
+      await newOffer.save();
+
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });
