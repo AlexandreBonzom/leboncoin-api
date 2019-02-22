@@ -28,12 +28,12 @@ const upLoadPicture = async (req, user) => {
 
         (error, result) => {
           if (error) return res.status(500).json({ error });
-          arrayPictures.push(result);
+          arrayPictures.push(result.secure_url);
         }
       );
     }
   }
-  console.log(arrayPictures);
+
   return arrayPictures;
 };
 
@@ -56,7 +56,7 @@ router.post("/publish", async (req, res) => {
       });
 
       await newOffer.save();
-      console.log(newOffer);
+
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });
