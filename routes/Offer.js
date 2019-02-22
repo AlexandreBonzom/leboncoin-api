@@ -33,7 +33,7 @@ const upLoadPicture = (req, user) => {
       );
     }
   }
-
+  console.log(arrayPictures);
   return arrayPictures;
 };
 
@@ -56,7 +56,7 @@ router.post("/publish", async (req, res) => {
       });
 
       await newOffer.save();
-
+      console.log(newOffer);
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });
