@@ -30,7 +30,7 @@ const upLoadPicture = (req, user) => {
       );
     }
   }
-  console.log(arrayPictures);
+  console.log("arraypicture1" + arrayPictures);
   return arrayPictures;
 };
 
@@ -43,17 +43,17 @@ router.post("/publish", async (req, res) => {
 
     if (user) {
       const arrayPictures = upLoadPicture(req, user);
-
+      console.log("arraypicture2" + arrayPictures);
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
         creator: user,
-        pictures: upLoadPicture(req, user)
+        pictures: arrayPictures
       });
-
+      console.log("newOffer" + newOffer);
       await newOffer.save();
-
+      console.log("afterNewOffer");
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });

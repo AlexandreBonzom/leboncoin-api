@@ -16,8 +16,7 @@ const Offer = mongoose.model("Offer", {
     }
   },
   pictures: {
-    type: Array,
-    default: []
+    type: Array
   }
 });
 
