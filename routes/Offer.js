@@ -27,11 +27,14 @@ const upLoadPicture = (req, user) => {
       cloudinary.v2.uploader.upload(
         files[i],
         { public_id: `leboncoin/${user._id}/${name}` },
-        (error, result) => {
-          console.log("ERROR" + error);
-          console.log(result);
-          if (error) return res.status(500).json({ error });
-          arrayPictures.push(result);
+
+        function(error, result) {
+          console.log(error, result);
+          // (error, result) => {
+          //   console.log("ERROR" + error);
+          //   console.log(result);
+          //   if (error) return res.status(500).json({ error });
+          //   arrayPictures.push(result);
         }
       );
     }
@@ -45,7 +48,7 @@ const upLoadPicture = (req, user) => {
 //Create
 router.post("/publish", async (req, res) => {
   const newToken = req.headers.authorization.replace("Bearer ", "");
-  console.log(newToken);
+
   try {
     const user = await User.findOne({ token: newToken }, "account");
 
