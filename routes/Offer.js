@@ -46,7 +46,7 @@ router.post("/publish", async (req, res) => {
 
     if (user) {
       const arrayPictures = upLoadPicture(req, user);
-
+      console.log(arrayPictures);
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
