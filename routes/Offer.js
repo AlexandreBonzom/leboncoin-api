@@ -17,15 +17,16 @@ cloudinary.config({
 const upLoadPicture = (req, user) => {
   let arrayPictures = [];
   const files = [...req.body.files];
-  console.log(files.length);
-  console.log("files" + files);
+
   if (files.length > 0) {
     for (let i = 0; i < files.length; i++) {
       const name = uid2(16);
+      console.log(files[i]);
       cloudinary.v2.uploader.upload(
-        req.body.files[i],
+        files[i],
         { public_id: `leboncoin/${user._id}/${name}` },
         function(error, result) {
+          console.log(result);
           if (error) return res.status(500).json({ error });
           arrayPictures.push(result);
         }
