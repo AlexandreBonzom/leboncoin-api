@@ -39,10 +39,10 @@ router.post("/publish", async (req, res) => {
 
   try {
     const user = await User.findOne({ token: newToken }, "account");
-    console.log("hello");
+
     if (user) {
       const arrayPictures = await upLoadPicture(req);
-      console.log("hello2");
+
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
@@ -50,9 +50,9 @@ router.post("/publish", async (req, res) => {
         creator: user,
         pictures: arrayPictures
       });
-      console.log("hello3");
+
       await newOffer.save();
-      console.log("hello4");
+
       res.json(newOffer);
     } else {
       res.json({ message: "you need to log in first" });
@@ -67,7 +67,7 @@ router.get("/with-count", async (req, res) => {
     const filter = {};
 
     if (req.query.title) {
-      filter.title = req.query.title;
+      filter.title = { $regex: req.query.title, $options: "i" };
     }
     if (req.query.priceMin) {
       filter.price = {};
@@ -77,12 +77,12 @@ router.get("/with-count", async (req, res) => {
       filter.price = {};
       filter.price.$lte = req.query.priceMax;
     }
-    const offers = Offer.find(filter);
+    let offers = Offer.find(filter);
     if (req.query.skip) {
-      offers = offers.skip(req.query.skip);
+      offers = offers.skip(Number(req.query.skip));
     }
     if (req.query.limit) {
-      offers = offers.limit(req.query.limit);
+      offers = offers.limit(Number(req.query.limit));
     }
 
     if (req.query.sort === "price-desc") {

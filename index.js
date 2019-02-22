@@ -36,11 +36,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
-//creation de chaine de caratere aleratoire hexadecimale,uid2 et aussi fonction de hash 256 et 64
-const uid2 = require("uid2");
-const SHA256 = require("crypto-js/sha256");
-const encBase64 = require("crypto-js/enc-base64");
-
 //import des routes Offers
 const offerRoutes = require("./routes/Offer");
 const userRoutes = require("./routes/User");
