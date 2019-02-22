@@ -25,7 +25,7 @@ const upLoadPicture = (req, user) => {
         { public_id: `leboncoin/${user._id}/${name}` },
         function(error, result) {
           if (error) return res.status(500).json({ error });
-          arrayPictures.push(result.secure_url);
+          arrayPictures.push(result);
         }
       );
     }
