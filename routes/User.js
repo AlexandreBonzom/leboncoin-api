@@ -25,12 +25,12 @@ router.post("/sign_up", async (req, res) => {
       });
 
       await newUser.save();
-      res.json({ newUser });
+      return res.json({ newUser });
     } else {
-      res.json({ message: "email already existing" });
+      return res.status(401).json({ message: "email already existing" });
     }
   } catch (error) {
-    res.json(error.message);
+    return res.status(401).json(error.message);
   }
 });
 
@@ -50,7 +50,7 @@ router.post("/log_in", async (req, res) => {
 
         res.json(response);
       } else {
-        res.json({ message: "wrong password" });
+        res.status(400).json({ message: "wrong password" });
       }
     } else {
       res.json({
@@ -58,7 +58,7 @@ router.post("/log_in", async (req, res) => {
       });
     }
   } catch (error) {
-    res.json(error.message);
+    res.status(400).json(error.message);
   }
 });
 

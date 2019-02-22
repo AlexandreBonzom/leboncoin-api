@@ -13,17 +13,18 @@ cloudinary.config({
 });
 //CRUD
 
-//middleware picture
-const upLoadPicture = async req => {
-  const arrayPictures = [];
+//upload
+const upLoadPicture = async (req, user) => {
+  let arrayPictures = [];
 
   if (req.body.files.length > 0) {
     for (let i = 0; i < req.body.files.length; i++) {
-      await cloudinary.v2.uploader.upload(
+      const name = uid2(16);
+      cloudinary.v2.uploader.upload(
         req.body.files[i],
-        { public_id: "leboncoin/" + uid2(16) },
+        { public_id: `leboncoin/${user._id}/${name}` },
         function(error, result) {
-          if (error) return error.message;
+          if (error) return res.status(500).json({ error });
           arrayPictures.push(result.secure_url);
         }
       );
@@ -41,7 +42,7 @@ router.post("/publish", async (req, res) => {
     const user = await User.findOne({ token: newToken }, "account");
 
     if (user) {
-      const arrayPictures = await upLoadPicture(req);
+      const arrayPictures = await upLoadPicture(req, user);
 
       const newOffer = new Offer({
         title: req.body.title,
