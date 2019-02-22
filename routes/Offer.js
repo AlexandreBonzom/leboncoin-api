@@ -17,6 +17,7 @@ cloudinary.config({
 const upLoadPicture = (req, user) => {
   let arrayPictures = [];
   const files = [...req.body.files];
+  console.log(files.length);
   console.log("files" + files);
   if (files.length > 0) {
     for (let i = 0; i < files.length; i++) {
