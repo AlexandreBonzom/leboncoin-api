@@ -16,9 +16,10 @@ cloudinary.config({
 //upload
 const upLoadPicture = (req, user) => {
   let arrayPictures = [];
-
-  if (req.body.files.length > 0) {
-    for (let i = 0; i < req.body.files.length; i++) {
+  const files = [...req.body.files];
+  console.log("files" + files);
+  if (files.length > 0) {
+    for (let i = 0; i < files.length; i++) {
       const name = uid2(16);
       cloudinary.v2.uploader.upload(
         req.body.files[i],
@@ -39,7 +40,7 @@ const upLoadPicture = (req, user) => {
 //Create
 router.post("/publish", async (req, res) => {
   const newToken = req.headers.authorization.replace("Bearer ", "");
-
+  console.log(newToken);
   try {
     const user = await User.findOne({ token: newToken }, "account");
 
