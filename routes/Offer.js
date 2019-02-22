@@ -14,9 +14,9 @@ cloudinary.config({
 //CRUD
 
 //upload
-const upLoadPicture = async (req, user) => {
+const upLoadPicture = (req, user) => {
   let arrayPictures = [];
-
+  console.log(req.body.files);
   if (req.body.files.length > 0) {
     for (let i = 0; i < req.body.files.length; i++) {
       const name = uid2(16);
@@ -42,14 +42,14 @@ router.post("/publish", async (req, res) => {
     const user = await User.findOne({ token: newToken }, "account");
 
     if (user) {
-      const arrayPictures = await upLoadPicture(req, user);
+      const arrayPictures = upLoadPicture(req, user);
 
       const newOffer = new Offer({
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
         creator: user,
-        pictures: arrayPictures
+        pictures: upLoadPicture(req, user)
       });
 
       await newOffer.save();
