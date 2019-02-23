@@ -110,7 +110,8 @@ router.get("/with-count", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const selectedOffer = await Offer.findOne({ _id: req.params.id }).populate(
-      "creator"
+      "creator",
+      "account"
     );
 
     res.json(selectedOffer);
