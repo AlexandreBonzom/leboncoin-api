@@ -106,6 +106,17 @@ router.get("/with-count", async (req, res) => {
   }
 });
 
+//read 1 offer specially
+router.get("/:id", async (req, res) => {
+  try {
+    const selectedOffer = await Offer.findOne({ _id: req.params.id })
+      .populate("creator")
+      .select("account");
+    res.json(selectedOffer);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
 //Update
 
 //delete
