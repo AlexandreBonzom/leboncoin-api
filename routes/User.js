@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
-
+const Offer = require("../models/Offer");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
@@ -57,6 +57,24 @@ router.post("/log_in", async (req, res) => {
         message: "email is not existing. Verify it or create an account"
       });
     }
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
+
+//read => get all the offer from one user
+router.get("/my_offers", async (req, res) => {
+  const newToken = req.headers.authorization.replace("Bearer ", "");
+
+  try {
+    const offers = await Offer.find().populate({
+      path: "creator",
+      match: {
+        token: newToken
+      }
+    });
+
+    res.json(offers);
   } catch (error) {
     res.status(400).json(error.message);
   }

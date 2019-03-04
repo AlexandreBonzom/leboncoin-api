@@ -123,4 +123,20 @@ router.get("/:id", async (req, res) => {
 
 //delete
 
+router.post("/delete", async (req, res) => {
+  const newToken = req.headers.authorization.replace("Bearer ", "");
+
+  try {
+    const offer = await Offer.findById(req.body.id).populate("creator");
+    if (offer.creator.token === newToken) {
+      await offer.remove();
+      res.status(200).json("deleted");
+    } else {
+      res.status(400).json("You don't have access to delete this offer");
+    }
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
+
 module.exports = router;

@@ -54,18 +54,6 @@ app.all("*", function(req, res) {
   res.status(404).json({ error: "Not Found" });
 });
 
-/*
-Le dernier middleware de la chaîne gérera les d'erreurs. Ce `error handler`
-doit définir obligatoirement 4 paramètres `err, req, res, next`.
-Définition d'un middleware : https://expressjs.com/en/guide/writing-middleware.html
-*/
-app.use(function(err, req, res, next) {
-  if (res.statusCode === 200) res.status(400);
-  console.error(err);
-
-  // if (process.env.NODE_ENV === "production") err = "An error occurred";
-  res.json({ error: err });
-});
 app.listen(process.env.PORT, function() {
   console.log(`leboncoin API running on port ${process.env.PORT}`);
   console.log(`Current environment is ${process.env.NODE_ENV}`);
