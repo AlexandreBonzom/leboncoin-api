@@ -25,7 +25,11 @@ router.post("/sign_up", async (req, res) => {
       });
 
       await newUser.save();
-      return res.json(newUser.account, newUser.token, newUser._id);
+      return res.json({
+        account: newUser.account,
+        token: newUser.token,
+        id: newUser._id
+      });
     } else {
       return res.status(401).json({ message: "email already existing" });
     }
