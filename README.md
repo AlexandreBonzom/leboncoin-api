@@ -1,35 +1,61 @@
-# leboncoin-api
+# LEBONCOIN REPLICA - SERVER SIDE
 
-Link to the website:
-https://leboncoin-client-replica.herokuapp.com/
+The purpose of this repo is to replicate the famous french website "Leboncoin" using React for the front part and Node.js with Expresss and MongoDB for the server and DB.
 
-Server part of Leboncoin's replica. It was an exercise done during the bootcamp.
-Here is the link for the front part of the code:
-https://github.com/AlexandreBonzom/leboncoin-exercice
 
-The application was developed in a few days and is not perfect.
-However, it was good to become familiar with several features used in each web application.
+## Getting Started
 
-Here are the developed features:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Registry
+### Installing
 
-The server receives a password. The server salts the password before hashing it. 
-So, no password is stored in the database.
+First clone the repo
 
-### Identify
+```
+git clone https://github.com/AlexandreBonzom/leboncoin-api.git 
+```
 
-The email and password are compared to the database (after being salted and chopped).
+And then install all packages on your machine
 
-### Offers
+```
+npm install
+```
 
-Ability to obtain the list of offers from the database.
-A filter generator is created if the search bar is used in front-end part.
-Ability to adjust the product base on price, title and to sort them.
+or
 
-Ability to publish an offer once connected, with images. The photos are received encoded in base 64.
-Then they are uploaded to Cloudinary, which returns a URL stored in the database.
+```
+yarn install
+```
 
-### User
 
-The user can get the list of his own offers and the possibility to delete them.
+## Launch Application
+
+```
+npm start
+```
+
+## Demo
+
+[Web Site Demo](https://leboncoin-client-replica.herokuapp.com/) The master branch is hosted on heroku. The first loading could be long.
+
+
+
+## Built With
+
+- Node.Js with Express
+- MongoDB (via mongoose)
+- Javascript
+
+
+### Client side
+
+[Client repository](https://github.com/AlexandreBonzom/leboncoin-exercice) - Front-end of the project.
+
+
+### Functionalities
+* API REST with CRUD - Create , Read , Update, Delete.
+* Utilization of middleware to check if user is logged.
+* Pictures from Front are send to Cloudinary to be hosted and get an url to stok in DB.
+* Password is not stocked directly in database but salted.
+* Possible to get fitlered publication if requested.
+
